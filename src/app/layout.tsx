@@ -18,9 +18,8 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {/* <TopNavBar /> */}
-        <LandingPageWrapper />
+        <LandingPageWrapper>{children}</LandingPageWrapper>
 
-        {children}
         {/* <Analytics /> */}
       </body>
     </html>

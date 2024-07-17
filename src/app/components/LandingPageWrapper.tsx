@@ -1,15 +1,18 @@
 "use client";
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { Fragment, useState, useEffect, useRef } from "react";
+import React, { Fragment, useState, useEffect, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-// import toggleSidebar from "../assets/toggle_sidebar.png";
 
 import { SideNav } from "components/SideNav";
 // import SettingsModal from "../Modals/SettingsModal.react";
 
-function LandingPageInner() {
+type LandingPageInnerType = {
+  children: React.ReactNode;
+};
+
+function LandingPageInner({ children }: LandingPageInnerType) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [openReferral, setOpenReferral] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
@@ -27,7 +30,8 @@ function LandingPageInner() {
   };
 
   useEffect(() => {
-    function handleClickOutside(event) {
+    function handleClickOutside(event: any) {
+      // @ts-ignore
       if (divRef.current && !divRef.current.contains(event.target)) {
         setIsPopupVisible(false);
       }
@@ -104,13 +108,7 @@ function LandingPageInner() {
                 </Transition.Child>
                 {/* Sidebar component, swap this element with another sidebar if you like */}
                 {/* <PageNav /> */}
-                <SideNav
-                  openReferral={openReferral}
-                  setOpenReferral={setOpenReferral}
-                  sidebarOpen={sidebarOpen}
-                  setOpenSet={setOpenSettings}
-                  setSidebarOpen={setSidebarOpen}
-                />
+                <SideNav setMinimize={setMinimize} minimize={minimize} />
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -237,18 +235,20 @@ function LandingPageInner() {
         {/* Sidebar component, swap this element with another sidebar if you like */}
         {/* <PageNav /> */}
         <img
+          src={"assets/toggle_sidebar.png"}
           onClick={() => setMinimize((prev) => !prev)}
-          //   src={toggleSidebar}
           className={`absolute -right-5 top-1/2 -translate-y-1/2 transform cursor-pointer ${minimize ? "" : "rotate-[180deg]"}`}
         />
 
-        <SideNav />
+        <SideNav setMinimize={setMinimize} minimize={minimize} />
       </div>
 
       <div
         className={`${minimize ? "lg:pl-[10rem]" : "lg:pl-72"} min-h-screen bg-gray-900`}
       >
-        <main className="max-w-screen-3xl mx-auto bg-gray-900/90"></main>
+        <main className="max-w-screen-3xl mx-auto bg-gray-900/90">
+          {children}
+        </main>
       </div>
     </div>
   );
@@ -269,6 +269,10 @@ function LandingPageInner() {
 //   return <LandingPage />;
 // }
 
-export function LandingPageWrapper() {
-  return <LandingPageInner />;
+type LandingPageWrapperType = {
+  children: React.ReactNode;
+};
+
+export function LandingPageWrapper({ children }: LandingPageWrapperType) {
+  return <LandingPageInner>{children}</LandingPageInner>;
 }

@@ -6,7 +6,23 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-geist-sans)", ...fontFamily.sans],
+        inter: ["Inter", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
+        encode: ["Encode Sans", "sans-serif"],
+        code: ["Source Code Pro", "monospace"],
+      },
+      colors: {
+        "design-light": "#fef9f6",
+        "design-orange": "#fcee09",
+        "design-orange-pressed": "#00f0ff",
+        "design-grey": "#d9d9d9",
+        "design-dark": "#2e2e2e",
+        "design-background": "#111827",
+      },
+      spacing: {
+        160: "40rem",
+        200: "50rem",
+        fitting: "83vh",
       },
     },
   },

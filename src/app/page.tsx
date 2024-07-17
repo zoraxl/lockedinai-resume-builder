@@ -3,8 +3,8 @@
 // import { Features } from "home/Features";
 // import { Testimonials } from "home/Testimonials";
 // import { QuestionsAndAnswers } from "home/QuestionsAndAnswers";
-// import ImportResume from "resume-import/page";
-import { LandingPageWrapper } from "components/LandingPageWrapper";
+import ImportResume from "resume-import/page";
+// import { LandingPageWrapper } from "components/LandingPageWrapper";
 
 export default function Home() {
   return (
@@ -14,7 +14,7 @@ export default function Home() {
       <Features />
       <Testimonials />
       <QuestionsAndAnswers /> */}
-      {/* <ImportResume /> */}
+      <ImportResume />
       {/* <LandingPageWrapper /> */}
     </main>
   );

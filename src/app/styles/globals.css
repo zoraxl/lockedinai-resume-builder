@@ -32,7 +32,7 @@
   --blue-color: #00f0ff;
   --darkblue-color: #182d35;
   --white-color: #fafafa;
-
+  --background-color: #111827;
   --theme-purple: #5d52d9;
   --theme-blue: #4fc5eb;
   /* Keep the below variable names in sync with CSS_VARIABLES in globals-css.ts */

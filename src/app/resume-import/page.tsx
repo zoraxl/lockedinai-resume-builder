@@ -16,8 +16,8 @@ export default function ImportResume() {
   }, []);
 
   return (
-    <main>
-      <div className="mx-auto mt-14 max-w-3xl rounded-md border border-gray-200 px-10 py-10 text-center shadow-md">
+    <div className="flex h-screen items-center">
+      <div className="mx-auto w-[90%] rounded-md border border-gray-200 px-10 py-10 text-center shadow-md lg:w-[800px]">
         {!hasUsedAppBefore ? (
           <>
             <h1 className="text-lg font-semibold text-gray-900">
@@ -58,7 +58,7 @@ export default function ImportResume() {
           </>
         )}
       </div>
-    </main>
+    </div>
   );
 }
 
