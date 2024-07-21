@@ -31,8 +31,11 @@ export const ThemeForm = () => {
     <BaseForm>
       <div className="flex flex-col gap-6">
         <div className="flex items-center gap-2">
-          <Cog6ToothIcon className="h-6 w-6 text-gray-600" aria-hidden="true" />
-          <h1 className="text-lg font-semibold tracking-wide text-gray-900 ">
+          <Cog6ToothIcon
+            className="text-design-blue h-6 w-6"
+            aria-hidden="true"
+          />
+          <h1 className="text-design-blue text-lg font-semibold tracking-wide">
             Resume Setting
           </h1>
         </div>
@@ -45,20 +48,22 @@ export const ThemeForm = () => {
             onChange={handleSettingsChange}
             inputStyle={{ color: themeColor }}
           />
-          <div className="mt-2 flex flex-wrap gap-2">
+          <div className="border-design-blue mt-2 flex flex-wrap gap-2">
             {THEME_COLORS.map((color, idx) => (
-              <div
-                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm text-white"
-                style={{ backgroundColor: color }}
-                key={idx}
-                onClick={() => handleSettingsChange("themeColor", color)}
-                onKeyDown={(e) => {
-                  if (["Enter", " "].includes(e.key))
-                    handleSettingsChange("themeColor", color);
-                }}
-                tabIndex={0}
-              >
-                {settings.themeColor === color ? "✓" : ""}
+              <div className="rounded-md border-[1px] border-solid p-[3px]">
+                <div
+                  className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm text-white"
+                  style={{ backgroundColor: color }}
+                  key={idx}
+                  onClick={() => handleSettingsChange("themeColor", color)}
+                  onKeyDown={(e) => {
+                    if (["Enter", " "].includes(e.key))
+                      handleSettingsChange("themeColor", color);
+                  }}
+                  tabIndex={0}
+                >
+                  {settings.themeColor === color ? "✓" : ""}
+                </div>
               </div>
             ))}
           </div>

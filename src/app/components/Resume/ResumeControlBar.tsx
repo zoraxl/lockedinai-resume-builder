@@ -60,12 +60,14 @@ const ResumeControlBar = ({
         </label>
       </div>
       <a
-        className="ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
+        className="btn ml-1 flex items-center gap-1 border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
         href={instance.url!}
         download={fileName}
       >
-        <ArrowDownTrayIcon className="h-4 w-4" />
-        <span className="whitespace-nowrap">Download Resume</span>
+        <span className="btn__content">
+          <ArrowDownTrayIcon className="mr-[10px] h-4 w-4" />
+          <span className="whitespace-nowrap">Download Resume</span>
+        </span>
       </a>
     </div>
   );
@@ -78,7 +80,7 @@ export const ResumeControlBarCSR = dynamic(
   () => Promise.resolve(ResumeControlBar),
   {
     ssr: false,
-  }
+  },
 );
 
 export const ResumeControlBarBorder = () => (

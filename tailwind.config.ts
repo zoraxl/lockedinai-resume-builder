@@ -18,6 +18,9 @@ export default {
         "design-grey": "#d9d9d9",
         "design-dark": "#2e2e2e",
         "design-background": "#111827",
+        "design-blue": "#06B6D4",
+        "design-dark-grey": "#202326",
+        "design-dark-grey-2": "#313438",
       },
       spacing: {
         160: "40rem",

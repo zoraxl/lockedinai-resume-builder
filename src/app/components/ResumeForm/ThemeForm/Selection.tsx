@@ -22,7 +22,7 @@ const Selection = ({
   children: React.ReactNode;
 }) => {
   const selectedStyle = {
-    color: "white",
+    color: "black",
     backgroundColor: selectedColor,
     borderColor: selectedColor,
     ...style,
@@ -30,7 +30,7 @@ const Selection = ({
 
   return (
     <div
-      className="flex w-[105px] cursor-pointer items-center justify-center rounded-md border border-gray-300 py-1.5 shadow-sm hover:border-gray-400 hover:bg-gray-100"
+      className="hover:bg-design-blue bg-design-dark-grey-2 flex w-[105px] cursor-pointer items-center justify-center rounded-md border border-gray-300 py-1.5 text-white shadow-sm hover:border-gray-400"
       onClick={onClick}
       style={isSelected ? selectedStyle : style}
       onKeyDown={(e) => {
@@ -89,7 +89,7 @@ export const FontFamilySelectionsCSR = dynamic(
   () => Promise.resolve(FontFamilySelections),
   {
     ssr: false,
-  }
+  },
 );
 
 export const FontSizeSelections = ({

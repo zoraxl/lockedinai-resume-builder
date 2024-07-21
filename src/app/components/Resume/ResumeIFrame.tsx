@@ -19,18 +19,18 @@ const getIframeInitialContent = (isA4: boolean) => {
   const allFontFamiliesPreloadLinks = allFontFamilies
     .map(
       (
-        font
+        font,
       ) => `<link rel="preload" as="font" href="/fonts/${font}-Regular.ttf" type="font/ttf" crossorigin="anonymous">
-<link rel="preload" as="font" href="/fonts/${font}-Bold.ttf" type="font/ttf" crossorigin="anonymous">`
+<link rel="preload" as="font" href="/fonts/${font}-Bold.ttf" type="font/ttf" crossorigin="anonymous">`,
     )
     .join("");
 
   const allFontFamiliesFontFaces = allFontFamilies
     .map(
       (
-        font
+        font,
       ) => `@font-face {font-family: "${font}"; src: url("/fonts/${font}-Regular.ttf");}
-@font-face {font-family: "${font}"; src: url("/fonts/${font}-Bold.ttf"); font-weight: bold;}`
+@font-face {font-family: "${font}"; src: url("/fonts/${font}-Bold.ttf"); font-weight: bold;}`,
     )
     .join("");
 
@@ -42,7 +42,7 @@ const getIframeInitialContent = (isA4: boolean) => {
       ${allFontFamiliesFontFaces}
     </style>
   </head>
-  <body style='overflow: hidden; width: ${width}pt; margin: 0; padding: 0; -webkit-text-size-adjust:none;'>
+  <body style='overflow-x: hidden; overflow-y: auto; width: ${width}pt; margin: 0; padding: 0; -webkit-text-size-adjust:none;'>
     <div></div>
   </body>
 </html>`;
@@ -66,7 +66,7 @@ const ResumeIframe = ({
   const isA4 = documentSize === "A4";
   const iframeInitialContent = useMemo(
     () => getIframeInitialContent(isA4),
-    [isA4]
+    [isA4],
   );
 
   if (enablePDFViewer) {
@@ -122,5 +122,5 @@ const DynamicPDFViewer = dynamic(
   () => import("@react-pdf/renderer").then((module) => module.PDFViewer),
   {
     ssr: false,
-  }
+  },
 );

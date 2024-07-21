@@ -40,7 +40,7 @@ export const BaseForm = ({
   className?: string;
 }) => (
   <section
-    className={`flex flex-col gap-3 rounded-md bg-white p-6 pt-4 shadow transition-opacity duration-200 ${className}`}
+    className={`bg-design-dark-grey border-design-blue flex flex-col gap-3 border-2 border-solid p-6 pt-4 shadow transition-opacity duration-200 ${className}`}
   >
     {children}
   </section>
@@ -91,10 +91,10 @@ export const Form = ({
     >
       <div className="flex items-center justify-between gap-4">
         <div className="flex grow items-center gap-2">
-          <Icon className="h-6 w-6 text-gray-600" aria-hidden="true" />
+          <Icon className="text-design-blue h-6 w-6" aria-hidden="true" />
           <input
             type="text"
-            className="block w-full border-b border-transparent text-lg font-semibold tracking-wide text-gray-900 outline-none hover:border-gray-300 hover:shadow-sm focus:border-gray-300 focus:shadow-sm"
+            className="text-design-blue bg-design-dark-grey block w-full border-b border-transparent text-lg font-semibold tracking-wide outline-none hover:border-gray-300 hover:shadow-sm focus:border-gray-300 focus:shadow-sm"
             value={heading}
             onChange={(e) => setHeading(e.target.value)}
           />
@@ -165,7 +165,7 @@ export const FormSection = ({
       )}
       <div className="relative grid grid-cols-6 gap-3">
         {children}
-        <div className={`absolute right-0 top-0 flex gap-0.5 `}>
+        <div className={`absolute right-0 top-0 flex gap-0.5`}>
           <div
             className={`transition-all duration-300 ${
               showMoveUp ? "" : "invisible opacity-0"

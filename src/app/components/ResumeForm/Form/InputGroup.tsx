@@ -26,14 +26,14 @@ export const InputGroupWrapper = ({
   className?: string;
   children?: React.ReactNode;
 }) => (
-  <label className={`text-base font-medium text-gray-700 ${className}`}>
+  <label className={`text-base font-normal text-white ${className} relative`}>
     {label}
     {children}
   </label>
 );
 
 export const INPUT_CLASS_NAME =
-  "mt-1 px-3 py-2 block w-full rounded-md border border-gray-300 text-gray-900 shadow-sm outline-none font-normal text-base";
+  "w-full h-[40px] py-[10px] px-2 border focus:outline-none bg-[#404040] focus:ring-transparent focus:border-white focus:outline-0 focus-visible:ring-transparent placeholder:text-[#9F9A9A] text-[#9F9A9A]   placeholder:text-sm  border-gray-400";
 
 export const Input = <K extends string>({
   name,
@@ -53,6 +53,16 @@ export const Input = <K extends string>({
         onChange={(e) => onChange(name, e.target.value)}
         className={INPUT_CLASS_NAME}
       />
+      <svg
+        className="absolute bottom-0 left-[-1px] z-10"
+        width="7"
+        height="7"
+        viewBox="0 0 7 7"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M0.772827 6.75V0L6.12344 6.75H0.772827Z" fill="#00F0FF" />
+      </svg>
     </InputGroupWrapper>
   );
 };
@@ -82,7 +92,7 @@ export const Textarea = <T extends string>({
 };
 
 export const BulletListTextarea = <T extends string>(
-  props: InputProps<T, string[]> & { showBulletPoints?: boolean }
+  props: InputProps<T, string[]> & { showBulletPoints?: boolean },
 ) => {
   const [showFallback, setShowFallback] = useState(false);
 
@@ -199,7 +209,7 @@ const BulletListTextareaFallback = <T extends string>({
 }: InputProps<T, string[]> & { showBulletPoints?: boolean }) => {
   const textareaValue = getTextareaValueFromBulletListStrings(
     bulletListStrings,
-    showBulletPoints
+    showBulletPoints,
   );
 
   return (
@@ -212,7 +222,7 @@ const BulletListTextareaFallback = <T extends string>({
       onChange={(name, value) => {
         onChange(
           name,
-          getBulletListStringsFromTextareaValue(value, showBulletPoints)
+          getBulletListStringsFromTextareaValue(value, showBulletPoints),
         );
       }}
     />
@@ -221,7 +231,7 @@ const BulletListTextareaFallback = <T extends string>({
 
 const getTextareaValueFromBulletListStrings = (
   bulletListStrings: string[],
-  showBulletPoints: boolean
+  showBulletPoints: boolean,
 ) => {
   const prefix = showBulletPoints ? "• " : "";
 
@@ -240,7 +250,7 @@ const getTextareaValueFromBulletListStrings = (
 
 const getBulletListStringsFromTextareaValue = (
   textareaValue: string,
-  showBulletPoints: boolean
+  showBulletPoints: boolean,
 ) => {
   const textareaValueWithNormalizedLineBreak =
     normalizeLineBreak(textareaValue);

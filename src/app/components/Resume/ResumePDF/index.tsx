@@ -102,6 +102,8 @@ export const ResumePDF = ({
             color: DEFAULT_FONT_COLOR,
             fontFamily,
             fontSize: fontSize + "pt",
+            height: "95vh",
+            overflowY: "auto",
           }}
         >
           {Boolean(settings.themeColor) && (

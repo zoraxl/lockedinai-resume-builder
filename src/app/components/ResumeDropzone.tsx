@@ -12,6 +12,7 @@ import addPdfSrc from "public/assets/add-pdf.svg";
 import Image from "next/image";
 import { cx } from "lib/cx";
 import { deepClone } from "lib/deep-clone";
+import CyberButton from "./CyberButton";
 
 const defaultFileState = {
   name: "",
@@ -97,10 +98,10 @@ export const ResumeDropzone = ({
   return (
     <div
       className={cx(
-        "flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 ",
+        "border-design-blue flex justify-center border-2 border-solid px-6",
         isHoveredOnDropzone && "border-sky-400",
         playgroundView ? "pb-6 pt-4" : "py-12",
-        className
+        className,
       )}
       onDragOver={(event) => {
         event.preventDefault();
@@ -112,7 +113,7 @@ export const ResumeDropzone = ({
       <div
         className={cx(
           "text-center",
-          playgroundView ? "space-y-2" : "space-y-3"
+          playgroundView ? "space-y-2" : "space-y-3",
         )}
       >
         {!playgroundView && (
@@ -128,20 +129,20 @@ export const ResumeDropzone = ({
           <>
             <p
               className={cx(
-                "pt-3 text-gray-700",
-                !playgroundView && "text-lg font-semibold"
+                "text-design-blue pt-3",
+                !playgroundView && "text-lg font-semibold",
               )}
             >
               Browse a pdf file or drop it here
             </p>
-            <p className="flex text-sm text-gray-500">
+            <p className="flex text-sm text-white">
               <LockClosedIcon className="mr-1 mt-1 h-3 w-3 text-gray-400" />
               File data is used locally and never leaves your browser
             </p>
           </>
         ) : (
           <div className="flex items-center justify-center gap-3 pt-3">
-            <div className="pl-7 font-semibold text-gray-900">
+            <div className="text-design-blue pl-7 font-semibold">
               {file.name} - {getFileSizeString(file.size)}
             </div>
             <button
@@ -150,20 +151,21 @@ export const ResumeDropzone = ({
               title="Remove file"
               onClick={onRemove}
             >
-              <XMarkIcon className="h-6 w-6" />
+              <XMarkIcon className="text-design-blue h-6 w-6" />
             </button>
           </div>
         )}
-        <div className="pt-4">
+        <div className="flex justify-center pt-4">
           {!hasFile ? (
             <>
               <label
-                className={cx(
-                  "within-outline-theme-purple cursor-pointer rounded-full px-6 pb-2.5 pt-2 font-semibold shadow-sm",
-                  playgroundView ? "border" : "bg-primary"
-                )}
+                // className={cx(
+                //   "within-outline-theme-purple cursor-pointer rounded-full px-6 pb-2.5 pt-2 font-semibold shadow-sm",
+                //   playgroundView ? "border" : "bg-primary",
+                // )}
+                className="btn block"
               >
-                Browse file
+                <span className="btn__content">Browse file</span>
                 <input
                   type="file"
                   className="sr-only"
@@ -176,21 +178,26 @@ export const ResumeDropzone = ({
               )}
             </>
           ) : (
-            <>
+            <div>
               {!playgroundView && (
-                <button
-                  type="button"
-                  className="btn-primary"
+                <CyberButton
+                  text="Import and Continue"
                   onClick={onImportClick}
-                >
-                  Import and Continue <span aria-hidden="true">→</span>
-                </button>
+                />
+
+                // <button
+                //   type="button"
+                //   className="btn-primary"
+                //   onClick={onImportClick}
+                // >
+                //   Import and Continue <span aria-hidden="true">→</span>
+                // </button>
               )}
-              <p className={cx(" text-gray-500", !playgroundView && "mt-6")}>
+              <p className={cx("text-gray-500", !playgroundView && "mt-6")}>
                 Note: {!playgroundView ? "Import" : "Parser"} works best on
                 single column resume
               </p>
-            </>
+            </div>
           )}
         </div>
       </div>
