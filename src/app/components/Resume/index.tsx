@@ -23,7 +23,7 @@ export const Resume = () => {
   const settings = useAppSelector(selectSettings);
   const document = useMemo(
     () => <ResumePDF resume={resume} settings={settings} isPDF={true} />,
-    [resume, settings]
+    [resume, settings],
   );
 
   useRegisterReactPDFFont();
@@ -56,7 +56,7 @@ export const Resume = () => {
             fileName={resume.profile.name + " - Resume"}
           />
         </div>
-        <ResumeControlBarBorder />
+        {/* <ResumeControlBarBorder /> */}
       </div>
     </>
   );

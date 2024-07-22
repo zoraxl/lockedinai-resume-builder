@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap");
+
 @import "./base.css";
 @import url("/fonts/fonts.css");
 @tailwind base;
@@ -42,12 +44,19 @@
   --resume-padding: 1.5rem;
 }
 
-.resume_builder::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 8px;
   background-color: transparent;
 }
 
-.resume_builder::-webkit-scrollbar-track {
+*::-webkit-scrollbar-thumb {
+  background-color: var(--theme-blue);
+  border-radius: 20px;
+}
+
+.resume_builder::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
 }
 
 .resume_builder::-webkit-scrollbar-thumb {

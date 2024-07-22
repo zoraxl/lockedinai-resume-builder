@@ -53,7 +53,7 @@ function LandingPageInner({ children }: LandingPageInnerType) {
   //   }, [location.pathname]);
 
   return (
-    <div>
+    <div className="font-source-code-pro">
       <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog
           as="div"

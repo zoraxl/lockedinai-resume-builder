@@ -6,6 +6,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        "source-code-pro": ["var(--font-source-code-pro)"],
         inter: ["Inter", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
         encode: ["Encode Sans", "sans-serif"],
