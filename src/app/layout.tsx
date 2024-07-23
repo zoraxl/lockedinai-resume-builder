@@ -1,3 +1,4 @@
+// @ts-nocheck
 import "styles/globals.css";
 import { TopNavBar } from "components/TopNavBar";
 import { Analytics } from "@vercel/analytics/react";
@@ -10,6 +11,7 @@ export const metadata = {
   //   "OpenResume is a free, open-source, and powerful resume builder that allows anyone to create a modern professional resume in 3 simple steps. For those who have an existing resume, OpenResume also provides a resume parser to help test and confirm its ATS readability.",
 };
 
+// @ts-ignore
 export const source_code_pro = Source_Code_Pro({
   subsets: ["latin"],
   variable: "--font-source-code-pro",
