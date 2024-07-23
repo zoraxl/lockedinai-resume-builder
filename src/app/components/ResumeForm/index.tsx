@@ -15,6 +15,9 @@ import { ThemeForm } from "components/ResumeForm/ThemeForm";
 import { CustomForm } from "components/ResumeForm/CustomForm";
 import { FlexboxSpacer } from "components/FlexboxSpacer";
 import { cx } from "lib/cx";
+import CyberButton from "components/CyberButton";
+import { useDispatch } from "react-redux";
+import { generateFakeResume } from "lib/redux/resumeSlice";
 
 const formTypeToComponent: { [type in ShowForm]: () => JSX.Element } = {
   workExperiences: WorkExperiencesForm,
@@ -25,16 +28,21 @@ const formTypeToComponent: { [type in ShowForm]: () => JSX.Element } = {
 };
 
 export const ResumeForm = () => {
+  const dispatch = useDispatch();
   useSetInitialStore();
   useSaveStateToLocalStorageOnChange();
 
   const formsOrder = useAppSelector(selectFormsOrder);
   const [isHover, setIsHover] = useState(false);
 
+  const handleFakeResume = () => {
+    // @ts-ignore
+    dispatch(generateFakeResume({}));
+  };
   return (
     <div
       className={cx(
-        "resume_builder flex justify-center md:h-[calc(100vh-var(--top-nav-bar-height))] md:justify-end md:overflow-y-scroll",
+        "resume_builder flex justify-center md:overflow-y-scroll lg:h-[calc(100vh-var(--top-nav-bar-height))] lg:justify-end",
       )}
       onMouseOver={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
@@ -46,6 +54,10 @@ export const ResumeForm = () => {
           return <Component key={form} />;
         })}
         <ThemeForm />
+        <div className="flex gap-8">
+          <CyberButton text="REFINE RESUME" />
+          <CyberButton text="GENERATE FAKE RESUME" onClick={handleFakeResume} />
+        </div>
         <br />
       </section>
       <FlexboxSpacer maxWidth={50} className="hidden md:block" />

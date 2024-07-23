@@ -246,6 +246,18 @@ function LandingPageInner({ children }: LandingPageInnerType) {
       <div
         className={`${minimize ? "lg:pl-[10rem]" : "lg:pl-72"} min-h-screen bg-gray-900`}
       >
+        <div
+          className={`sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between gap-x-4 bg-gray-900/90 px-4 shadow-md sm:gap-x-6 sm:px-6 lg:px-8`}
+        >
+          <button
+            type="button"
+            className={`-m-2.5 flex items-center justify-center p-2.5 text-cyan-500 lg:hidden`}
+            onClick={() => setSidebarOpen(true)}
+          >
+            <span className="sr-only">Open sidebar</span>
+            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+          </button>
+        </div>
         <main className="max-w-screen-3xl mx-auto bg-gray-900/90">
           {children}
         </main>

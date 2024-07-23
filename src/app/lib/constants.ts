@@ -14,3 +14,6 @@ export const A4_WIDTH_PX = A4_WIDTH_PT * PX_PER_PT;
 export const A4_HEIGHT_PX = A4_HEIGHT_PT * PX_PER_PT;
 
 export const DEBUG_RESUME_PDF_FLAG: true | undefined = undefined; // use undefined to disable to deal with a weird error message
+
+export const RESUME_SERVICE_BASE_URL =
+  "https://fake-ai-resume.ashypebble-741dcff3.eastus.azurecontainerapps.io";
