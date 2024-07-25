@@ -91,3 +91,12 @@
   background-color: var(--black-color);
   clip-path: polygon(92% 0, 100% 25%, 100% 100%, 8% 100%, 0% 75%, 0 0);
 }
+
+.clipped-modal-cont {
+  clip-path: "inset(35% 0% 0% 0%)";
+  content: "";
+}
+
+.clipped-modal {
+  clip-path: polygon(14% 0, 100% 0, 100% 86%, 86% 100%, 0 100%, 0 14%);
+}

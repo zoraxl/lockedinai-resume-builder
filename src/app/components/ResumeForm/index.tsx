@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import {
   useAppSelector,
   useSaveStateToLocalStorageOnChange,
@@ -18,6 +18,9 @@ import { cx } from "lib/cx";
 import CyberButton from "components/CyberButton";
 import { useDispatch } from "react-redux";
 import { generateFakeResume } from "lib/redux/resumeSlice";
+import JobInputModal from "components/modals/JobInputModal";
+import { Dialog, Transition } from "@headlessui/react";
+import { set } from "zod";
 
 const formTypeToComponent: { [type in ShowForm]: () => JSX.Element } = {
   workExperiences: WorkExperiencesForm,
@@ -29,15 +32,18 @@ const formTypeToComponent: { [type in ShowForm]: () => JSX.Element } = {
 
 export const ResumeForm = () => {
   const dispatch = useDispatch();
+
   useSetInitialStore();
   useSaveStateToLocalStorageOnChange();
 
   const formsOrder = useAppSelector(selectFormsOrder);
   const [isHover, setIsHover] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleFakeResume = () => {
     // @ts-ignore
-    dispatch(generateFakeResume({}));
+    // dispatch(generateFakeResume({}));
+    setModalOpen(true);
   };
   return (
     <div
@@ -61,6 +67,12 @@ export const ResumeForm = () => {
         <br />
       </section>
       <FlexboxSpacer maxWidth={50} className="hidden md:block" />
+
+      <JobInputModal
+        formOpen={modalOpen}
+        setFormOpen={setModalOpen}
+        title="Generate Fake Resume"
+      />
     </div>
   );
 };

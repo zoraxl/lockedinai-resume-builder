@@ -11,6 +11,7 @@ interface InputProps<K extends string, V extends string | string[]> {
   value?: V;
   placeholder: string;
   onChange: (name: K, value: V) => void;
+  ignoreAutoSize?: boolean;
 }
 
 /**
@@ -74,15 +75,16 @@ export const Textarea = <T extends string>({
   value = "",
   placeholder,
   onChange,
+  ignoreAutoSize,
 }: InputProps<T, string>) => {
   const textareaRef = useAutosizeTextareaHeight({ value });
 
   return (
     <InputGroupWrapper label={label} className={wrapperClassName}>
       <textarea
-        ref={textareaRef}
+        ref={ignoreAutoSize ? null : textareaRef}
         name={name}
-        className={`${INPUT_CLASS_NAME} resize-none overflow-hidden`}
+        className={`${INPUT_CLASS_NAME} ${ignoreAutoSize ? "h-[70px]" : ""} resize-none overflow-hidden`}
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(name, e.target.value)}
