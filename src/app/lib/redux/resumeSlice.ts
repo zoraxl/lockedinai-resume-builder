@@ -15,6 +15,7 @@ import type {
 } from "lib/redux/types";
 import type { ShowForm } from "lib/redux/settingsSlice";
 import { generateFakeResumeService } from "lib/services/resumeService";
+import { thunkStatus } from "./utils";
 
 export const initialProfile: ResumeProfile = {
   name: "",
@@ -66,6 +67,7 @@ export const initialResumeState: Resume = {
   projects: [initialProject],
   skills: initialSkills,
   custom: initialCustom,
+  generateFakeResumeStatus: thunkStatus.IDLE,
 };
 
 // Keep the field & value type in sync with CreateHandleChangeArgsWithDescriptions (components\ResumeForm\types.ts)
@@ -83,7 +85,7 @@ const name = "resume";
 
 export const generateFakeResume = createAsyncThunk(
   `${name}/generateFakeResume`,
-  async (_, { getState }) => {
+  async (_, { getState, dispatch }) => {
     const job_title = "Senior Graphic Designer";
     const job_description =
       "We are seeking a talented and experienced Senior Graphic Designer for a full-time on-site position in Karachi. The Graphic Designer will play a crucial role in executing day-to-day creative design tasks, encompassing graphics, branding, web design, and various related design projects. This role requires a high level of creativity, proficiency in design software, and the ability to work both collaboratively and independently.";
@@ -91,6 +93,25 @@ export const generateFakeResume = createAsyncThunk(
       job_title,
       job_description,
     });
+    dispatch(changeProfile({ field: "name", value: fakeResume?.name }));
+    dispatch(
+      changeProfile({ field: "email", value: fakeResume?.contact_info?.email }),
+    );
+    dispatch(
+      changeProfile({
+        field: "location",
+        value: fakeResume?.contact_info?.location,
+      }),
+    );
+    dispatch(
+      changeProfile({
+        field: "phone",
+        value: fakeResume?.contact_info?.phone_number,
+      }),
+    );
+    dispatch(
+      changeProfile({ field: "url", value: fakeResume?.contact_info?.website }),
+    );
     console.log(fakeResume);
   },
 );

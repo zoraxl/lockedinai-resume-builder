@@ -40,10 +40,14 @@ export const ResumeForm = () => {
   const [isHover, setIsHover] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handleFakeResume = () => {
+  const handleFakeResume = ({ jobTitle, jobDesc }: any) => {
     // @ts-ignore
-    // dispatch(generateFakeResume({}));
-    setModalOpen(true);
+    dispatch(generateFakeResume({}))
+      .unwrap()
+      .then(() => {
+        setModalOpen(false);
+      });
+    console.log({ jobTitle, jobDesc });
   };
   return (
     <div
@@ -62,7 +66,10 @@ export const ResumeForm = () => {
         <ThemeForm />
         <div className="flex gap-8">
           <CyberButton text="REFINE RESUME" />
-          <CyberButton text="GENERATE FAKE RESUME" onClick={handleFakeResume} />
+          <CyberButton
+            text="GENERATE FAKE RESUME"
+            onClick={() => setModalOpen(true)}
+          />
         </div>
         <br />
       </section>
@@ -72,6 +79,7 @@ export const ResumeForm = () => {
         formOpen={modalOpen}
         setFormOpen={setModalOpen}
         title="Generate Fake Resume"
+        handleSubmit={handleFakeResume}
       />
     </div>
   );

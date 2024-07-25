@@ -1,6 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
 import OriginalButton from "components/OriginalButton";
 import { Input, Textarea } from "components/ResumeForm/Form/InputGroup";
+import { useAppSelector } from "lib/redux/hooks";
+import { thunkStatus } from "lib/redux/utils";
 import React, { useState, useEffect, Fragment } from "react";
 
 // import Button from "../components/MyNewComponents/Button.react";
@@ -14,11 +16,15 @@ const Close = "/assets/close-blue.svg";
 const InputVector = "/assets/input-vector.svg";
 
 function ModalContent(props: any) {
-  const { setFormOpen, title } = props;
+  const { setFormOpen, title, handleSubmit } = props;
+  const loading = useAppSelector(
+    (state) => state.resume.generateFakeResumeStatus === thunkStatus.LOADING,
+  );
 
   const [jobTitle, setJobTitle] = useState("");
   const [jobDesc, setJobDesc] = useState("");
 
+  //   console.log({ loading });
   return (
     <section className="relative z-50 w-[370px]">
       <div className="absolute bottom-[-17px] left-0 flex items-center">
@@ -63,6 +69,8 @@ function ModalContent(props: any) {
                 <OriginalButton
                   className="h-6 w-20 min-w-max bg-cyan-500 px-2 text-xs text-black transition duration-200 ease-out hover:bg-cyan-500/80 md:h-10"
                   text={"Confirm"}
+                  handleClick={() => handleSubmit({ jobTitle, jobDesc })}
+                  loading={loading}
                 />
                 <OriginalButton
                   handleClick={() => setFormOpen(false)}
@@ -79,7 +87,7 @@ function ModalContent(props: any) {
 }
 
 function JobInputModal(props: any) {
-  const { formOpen, setFormOpen, title } = props;
+  const { formOpen, setFormOpen, title, handleSubmit } = props;
 
   return (
     <Transition.Root show={formOpen} as={Fragment}>
@@ -112,7 +120,11 @@ function JobInputModal(props: any) {
           >
             <Dialog.Panel className="fixed inset-y-0 right-0 flex w-full justify-center">
               <div className="absolute left-[50%] top-[50%] z-10 translate-x-[-50%] translate-y-[-50%]">
-                <ModalContent setFormOpen={setFormOpen} title={title} />
+                <ModalContent
+                  setFormOpen={setFormOpen}
+                  title={title}
+                  handleSubmit={handleSubmit}
+                />
               </div>
             </Dialog.Panel>
           </Transition.Child>
