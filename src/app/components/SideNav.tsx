@@ -3,6 +3,11 @@ import Link from "next/link";
 import PropTypes from "prop-types";
 
 import React, { useState, useEffect } from "react";
+import CyberButton from "./CyberButton";
+import NewCyberButton from "./NewCyberButton";
+import { SiRobotframework } from "react-icons/si";
+import { IoLink } from "react-icons/io5";
+import { PiCoinsFill } from "react-icons/pi";
 
 // TODO: add proper types
 export function SideNav({ setMinimize, minimize }: any) {
@@ -36,7 +41,7 @@ export function SideNav({ setMinimize, minimize }: any) {
       <div className="flex h-24 shrink-0 items-center border-b border-white/[.2]">
         {!minimize ? (
           <div>
-            <Link href="#">
+            <Link href="/">
               <img
                 className="m-8 mx-auto h-full w-auto object-contain"
                 src={"assets/logo/white_logo.png"}
@@ -56,8 +61,8 @@ export function SideNav({ setMinimize, minimize }: any) {
           </div>
         )}
       </div>
-      <div className="font-poppins flex w-full items-center justify-between text-white">
-        <div className="ml-4 mt-1">
+      <div className="flex w-full items-center justify-between border-b border-white/[.2] font-poppins text-white">
+        <div className="mb-6 ml-4 mt-1">
           <h3 className="overflow-hidden truncate text-[16px] font-[600]">
             Mirza Adil
           </h3>
@@ -111,6 +116,55 @@ export function SideNav({ setMinimize, minimize }: any) {
               </div> */}
         </div>
       </div>
+      {!minimize ? (
+        <div className="w-full justify-between border-b border-white/[.2] pb-6 pt-4 font-poppins text-white">
+          <h3 className="mb-4 text-sm">Interview AI</h3>
+          <div className="mt-1">
+            <Link href="https://app.lockedinai.com/app/dashboard">
+              <NewCyberButton text={"INTERVIEW CO-PILOT"} />
+            </Link>
+          </div>
+          <div className="mt-1">
+            <Link href={"https://app.lockedinai.com/app/jobConsultant"}>
+              <NewCyberButton text="Resume Pro" />
+            </Link>
+          </div>
+          <div className="mt-1">
+            <Link href="https://app.lockedinai.com/app/interviewPrep">
+              <NewCyberButton text={"INTERVIEW SIMULATOR"} />
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="mt-2 flex w-full justify-center">
+            <div className="grid grid-rows-4 gap-3">
+              <div className="my-1 border border-gray-800 bg-gray-800 p-2 text-gray-400 hover:border-cyan-500">
+                <Link href={"https://app.lockedinai.com/app/dashboard"}>
+                  <SiRobotframework className="" size={30} />
+                </Link>
+              </div>
+              {/* <Link href={"https://app.lockedinai.com/app/jobConsultant"}>
+                <button className="my-1 border border-gray-800 bg-gray-800 p-2 text-gray-400 hover:border-cyan-500">
+                  <IoLink size={30} />
+                </button>
+              </Link>
+
+              <div className="my-1 border border-gray-800 bg-gray-800 p-2 text-gray-400 hover:border-cyan-500">
+                <Link href={"https://app.lockedinai.com/app/interviewPrep"}>
+                  <PiCoinsFill size={30} />
+                </Link>
+              </div> */}
+              {/* <button
+            onClick={handleClickMinimizeHistory}
+            className="text-gray-400 bg-gray-800 p-2 my-1 hover:border-cyan-500 border border-gray-800"
+          >
+            <FaHistory size={30} />
+          </button> */}
+            </div>
+          </div>
+        </>
+      )}
       {/* <div className="flex h-10 mt-5 shrink-0 items-center">
         <img
           onClick={() => setSidebarOpen(!sidebarOpen)}

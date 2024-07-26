@@ -41,8 +41,12 @@ export const ResumeForm = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleFakeResume = ({ jobTitle, jobDesc }: any) => {
+    if (!jobTitle || !jobDesc) {
+      alert("Please fill both job title and job description");
+      return;
+    }
     // @ts-ignore
-    dispatch(generateFakeResume({}))
+    dispatch(generateFakeResume({ jobTitle, jobDesc }))
       .unwrap()
       .then(() => {
         setModalOpen(false);

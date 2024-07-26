@@ -187,7 +187,7 @@ const getBulletListStringsFromInnerText = (innerText: string) => {
 
 const getHTMLFromBulletListStrings = (bulletListStrings: string[]) => {
   // If bulletListStrings is an empty array, make it an empty div
-  if (bulletListStrings.length === 0) {
+  if (bulletListStrings?.length === 0) {
     return "<div></div>";
   }
 

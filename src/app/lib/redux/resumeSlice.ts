@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   createAsyncThunk,
   createSlice,
@@ -85,34 +86,106 @@ const name = "resume";
 
 export const generateFakeResume = createAsyncThunk(
   `${name}/generateFakeResume`,
-  async (_, { getState, dispatch }) => {
-    const job_title = "Senior Graphic Designer";
-    const job_description =
-      "We are seeking a talented and experienced Senior Graphic Designer for a full-time on-site position in Karachi. The Graphic Designer will play a crucial role in executing day-to-day creative design tasks, encompassing graphics, branding, web design, and various related design projects. This role requires a high level of creativity, proficiency in design software, and the ability to work both collaboratively and independently.";
-    const { data: fakeResume } = await generateFakeResumeService({
-      job_title,
-      job_description,
-    });
-    dispatch(changeProfile({ field: "name", value: fakeResume?.name }));
-    dispatch(
-      changeProfile({ field: "email", value: fakeResume?.contact_info?.email }),
-    );
-    dispatch(
-      changeProfile({
-        field: "location",
-        value: fakeResume?.contact_info?.location,
-      }),
-    );
-    dispatch(
-      changeProfile({
-        field: "phone",
-        value: fakeResume?.contact_info?.phone_number,
-      }),
-    );
-    dispatch(
-      changeProfile({ field: "url", value: fakeResume?.contact_info?.website }),
-    );
-    console.log(fakeResume);
+  async ({ jobTitle, jobDesc }: any, { getState, dispatch }) => {
+    try {
+      const job_title = jobTitle;
+      const job_description = jobDesc;
+      const { data: fakeResume } = await generateFakeResumeService({
+        job_title,
+        job_description,
+      });
+
+      const skillsList = fakeResume?.skills?.split(",") || [];
+      const workExpList = fakeResume?.work_experience || [];
+      const projectsList = fakeResume?.technical_project_experience || [];
+
+      dispatch(changeProfile({ field: "name", value: fakeResume?.name }));
+      dispatch(changeProfile({ field: "summary", value: fakeResume?.profile }));
+      dispatch(
+        changeProfile({
+          field: "email",
+          value: fakeResume?.contact_info?.email,
+        }),
+      );
+      dispatch(
+        changeProfile({
+          field: "location",
+          value: fakeResume?.contact_info?.location,
+        }),
+      );
+      dispatch(
+        changeProfile({
+          field: "phone",
+          value: fakeResume?.contact_info?.phone_number,
+        }),
+      );
+      dispatch(
+        changeProfile({
+          field: "url",
+          value: fakeResume?.contact_info?.website,
+        }),
+      );
+      dispatch(changeSkills({ field: "descriptions", value: skillsList }));
+
+      workExpList.forEach((exp, idx) => {
+        dispatch(
+          changeWorkExperiences({
+            idx,
+            field: "jobTitle",
+            value: exp?.title || "",
+          }),
+        );
+        dispatch(
+          changeWorkExperiences({
+            idx,
+            field: "company",
+            value: exp?.company || "",
+          }),
+        );
+        dispatch(
+          changeWorkExperiences({
+            idx,
+            field: "date",
+            value: exp?.duration || "",
+          }),
+        );
+        dispatch(
+          changeWorkExperiences({
+            idx,
+            field: "descriptions",
+            value: [exp?.description || ""],
+          }),
+        );
+        if (idx + 1 !== workExpList.length) {
+          dispatch(addSectionInForm({ form: "workExperiences" }));
+        }
+      });
+
+      projectsList.forEach((project, idx) => {
+        dispatch(
+          changeProjects({
+            idx,
+            field: "project",
+            value: project?.project_title || "",
+          }),
+        );
+        dispatch(
+          changeProjects({
+            idx,
+            field: "descriptions",
+            value: [project?.description || ""],
+          }),
+        );
+        if (idx + 1 !== projectsList.length) {
+          dispatch(addSectionInForm({ form: "projects" }));
+        }
+      });
+      console.log(fakeResume);
+    } catch (err) {
+      console.log(err);
+      // @ts-ignore
+      alert(err?.message);
+    }
   },
 );
 
