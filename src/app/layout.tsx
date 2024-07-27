@@ -26,13 +26,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${source_code_pro.variable}`}>
         {/* <TopNavBar /> */}
-        {/* <ClerkProvider
+        <ClerkProvider
           isSatellite={true}
           domain={"/http:localhost:3000"}
           signInUrl="http:localhost:3000/sign-in"
-        > */}
-        <LandingPageWrapper>{children}</LandingPageWrapper>
-        {/* </ClerkProvider> */}
+          publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+        >
+          <LandingPageWrapper>{children}</LandingPageWrapper>
+        </ClerkProvider>
 
         {/* <Analytics /> */}
       </body>
