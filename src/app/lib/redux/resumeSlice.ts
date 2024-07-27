@@ -15,7 +15,10 @@ import type {
   ResumeWorkExperience,
 } from "lib/redux/types";
 import type { ShowForm } from "lib/redux/settingsSlice";
-import { generateFakeResumeService } from "lib/services/resumeService";
+import {
+  generateFakeResumeService,
+  refineResumeService,
+} from "lib/services/resumeService";
 import { thunkStatus } from "./utils";
 
 export const initialProfile: ResumeProfile = {
@@ -69,6 +72,7 @@ export const initialResumeState: Resume = {
   skills: initialSkills,
   custom: initialCustom,
   generateFakeResumeStatus: thunkStatus.IDLE,
+  refineResumeStatus: thunkStatus.IDLE,
 };
 
 // Keep the field & value type in sync with CreateHandleChangeArgsWithDescriptions (components\ResumeForm\types.ts)
@@ -99,93 +103,163 @@ export const generateFakeResume = createAsyncThunk(
       const workExpList = fakeResume?.work_experience || [];
       const projectsList = fakeResume?.technical_project_experience || [];
 
-      dispatch(changeProfile({ field: "name", value: fakeResume?.name }));
-      dispatch(changeProfile({ field: "summary", value: fakeResume?.profile }));
-      dispatch(
-        changeProfile({
-          field: "email",
-          value: fakeResume?.contact_info?.email,
-        }),
-      );
-      dispatch(
-        changeProfile({
-          field: "location",
-          value: fakeResume?.contact_info?.location,
-        }),
-      );
-      dispatch(
-        changeProfile({
-          field: "phone",
-          value: fakeResume?.contact_info?.phone_number,
-        }),
-      );
-      dispatch(
-        changeProfile({
-          field: "url",
-          value: fakeResume?.contact_info?.website,
-        }),
-      );
-      dispatch(changeSkills({ field: "descriptions", value: skillsList }));
-
-      workExpList.forEach((exp, idx) => {
-        dispatch(
-          changeWorkExperiences({
-            idx,
-            field: "jobTitle",
-            value: exp?.title || "",
-          }),
-        );
-        dispatch(
-          changeWorkExperiences({
-            idx,
-            field: "company",
-            value: exp?.company || "",
-          }),
-        );
-        dispatch(
-          changeWorkExperiences({
-            idx,
-            field: "date",
-            value: exp?.duration || "",
-          }),
-        );
-        dispatch(
-          changeWorkExperiences({
-            idx,
-            field: "descriptions",
-            value: [exp?.description || ""],
-          }),
-        );
-        if (idx + 1 !== workExpList.length) {
-          dispatch(addSectionInForm({ form: "workExperiences" }));
-        }
-      });
-
-      projectsList.forEach((project, idx) => {
-        dispatch(
-          changeProjects({
-            idx,
-            field: "project",
-            value: project?.project_title || "",
-          }),
-        );
-        dispatch(
-          changeProjects({
-            idx,
-            field: "descriptions",
-            value: [project?.description || ""],
-          }),
-        );
-        if (idx + 1 !== projectsList.length) {
-          dispatch(addSectionInForm({ form: "projects" }));
-        }
-      });
-      console.log(fakeResume);
+      const data = { ...fakeResume, skillsList, workExpList, projectsList };
+      dispatch(updateResume(data));
     } catch (err) {
       console.log(err);
       // @ts-ignore
       alert(err?.message);
     }
+  },
+);
+
+export const refineResume = createAsyncThunk(
+  `${name}/refineResume`,
+  async ({ jobTitle, jobDesc, resume }: any, { getState, dispatch }) => {
+    try {
+      const resume = getState()?.resume;
+      const job_title = jobTitle;
+      const job_description = jobDesc;
+      const profile_summary = resume?.profile?.summary || "";
+      const skills = [
+        ...(resume?.skills?.description || []),
+        ...(resume?.skills?.featuredSkills
+          ?.filter?.((f) => f?.skill)
+          ?.map((f) => f?.skill) || []),
+      ]
+        .flat()
+        .join(",");
+      const experience =
+        resume?.workExperiences?.filter?.((w) => w?.company) || [];
+      const projects = resume?.projects?.filter?.((p) => p?.project) || [];
+
+      const request_body = {
+        job_title,
+        job_description,
+        profile_summary,
+        skills,
+        experience,
+        projects,
+      };
+
+      console.log({ request_body });
+      const { data: refinedResume } = await refineResumeService(request_body);
+      const profile = refinedResume?.profile_summary || "";
+      const skillsList = refinedResume?.skills?.split?.(",") || [];
+      const workExpList = refinedResume?.experience || [];
+      const projectsList = refinedResume?.projects || [];
+
+      const data = {
+        profile,
+        skillsList,
+        workExpList,
+        projectsList,
+      };
+      dispatch(updateResume(data));
+    } catch (err) {
+      console.log(err);
+      // @ts-ignore
+      alert(err?.message);
+    }
+  },
+);
+
+const updateResume = createAsyncThunk(
+  `${name}/updateResume`,
+  async (data, { getState, dispatch }) => {
+    const resume = getState()?.resume;
+    const { projectsList, workExpList, skillsList } = data;
+    dispatch(
+      changeProfile({
+        field: "name",
+        value: data?.name || resume?.profile?.name || "",
+      }),
+    );
+    dispatch(
+      changeProfile({
+        field: "summary",
+        value: data?.profile || resume?.profile?.summary || "",
+      }),
+    );
+    dispatch(
+      changeProfile({
+        field: "email",
+        value: data?.contact_info?.email || resume?.profile?.email || "",
+      }),
+    );
+    dispatch(
+      changeProfile({
+        field: "location",
+        value: data?.contact_info?.location || resume?.profile?.location || "",
+      }),
+    );
+    dispatch(
+      changeProfile({
+        field: "phone",
+        value: data?.contact_info?.phone_number || resume?.profile?.phone || "",
+      }),
+    );
+    dispatch(
+      changeProfile({
+        field: "url",
+        value: data?.contact_info?.website || resume?.profile?.url || "",
+      }),
+    );
+    dispatch(changeSkills({ field: "descriptions", value: skillsList }));
+
+    workExpList.forEach((exp, idx) => {
+      dispatch(
+        changeWorkExperiences({
+          idx,
+          field: "jobTitle",
+          value: exp?.title || "",
+        }),
+      );
+      dispatch(
+        changeWorkExperiences({
+          idx,
+          field: "company",
+          value: exp?.company || "",
+        }),
+      );
+      dispatch(
+        changeWorkExperiences({
+          idx,
+          field: "date",
+          value: exp?.duration || "",
+        }),
+      );
+      dispatch(
+        changeWorkExperiences({
+          idx,
+          field: "descriptions",
+          value: [exp?.description || ""],
+        }),
+      );
+      if (idx + 1 !== workExpList.length) {
+        dispatch(addSectionInForm({ form: "workExperiences" }));
+      }
+    });
+
+    projectsList.forEach((project, idx) => {
+      dispatch(
+        changeProjects({
+          idx,
+          field: "project",
+          value: project?.project_title || "",
+        }),
+      );
+      dispatch(
+        changeProjects({
+          idx,
+          field: "descriptions",
+          value: [project?.description || ""],
+        }),
+      );
+      if (idx + 1 !== projectsList.length) {
+        dispatch(addSectionInForm({ form: "projects" }));
+      }
+    });
   },
 );
 

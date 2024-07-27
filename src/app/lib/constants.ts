@@ -17,3 +17,6 @@ export const DEBUG_RESUME_PDF_FLAG: true | undefined = undefined; // use undefin
 
 export const RESUME_SERVICE_BASE_URL =
   "https://fake-ai-resume.ashypebble-741dcff3.eastus.azurecontainerapps.io";
+
+export const REFINE_RESUME_SERVICE_BASE_URL =
+  "https://optimize-ai-resume.ashypebble-741dcff3.eastus.azurecontainerapps.io";

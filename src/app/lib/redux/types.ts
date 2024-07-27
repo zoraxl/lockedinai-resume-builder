@@ -50,6 +50,7 @@ export interface Resume {
   skills: ResumeSkills;
   custom: ResumeCustom;
   generateFakeResumeStatus: string;
+  refineResumeStatus: string;
 }
 
 export type ResumeKey = keyof Resume;

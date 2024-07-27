@@ -16,9 +16,12 @@ const Close = "/assets/close-blue.svg";
 const InputVector = "/assets/input-vector.svg";
 
 function ModalContent(props: any) {
-  const { setFormOpen, title, handleSubmit } = props;
+  const { setFormOpen, title, handleSubmit, type } = props;
   const loading = useAppSelector(
     (state) => state.resume.generateFakeResumeStatus === thunkStatus.LOADING,
+  );
+  const loading2 = useAppSelector(
+    (state) => state.resume.refineResumeStatus === thunkStatus.LOADING,
   );
 
   const [jobTitle, setJobTitle] = useState("");
@@ -69,8 +72,8 @@ function ModalContent(props: any) {
                 <OriginalButton
                   className="h-6 w-20 min-w-max bg-cyan-500 px-2 text-xs text-black transition duration-200 ease-out hover:bg-cyan-500/80 md:h-10"
                   text={"Confirm"}
-                  handleClick={() => handleSubmit({ jobTitle, jobDesc })}
-                  loading={loading}
+                  handleClick={() => handleSubmit({ jobTitle, jobDesc, type })}
+                  loading={loading || loading2}
                 />
                 <OriginalButton
                   handleClick={() => setFormOpen(false)}
@@ -87,8 +90,8 @@ function ModalContent(props: any) {
 }
 
 function JobInputModal(props: any) {
-  const { formOpen, setFormOpen, title, handleSubmit } = props;
-
+  const { formOpen, setFormOpen, handleSubmit } = props;
+  const { title, type } = formOpen;
   return (
     <Transition.Root show={formOpen} as={Fragment}>
       <Dialog
@@ -124,6 +127,7 @@ function JobInputModal(props: any) {
                   setFormOpen={setFormOpen}
                   title={title}
                   handleSubmit={handleSubmit}
+                  type={type}
                 />
               </div>
             </Dialog.Panel>

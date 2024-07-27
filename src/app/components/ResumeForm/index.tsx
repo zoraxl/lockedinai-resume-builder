@@ -17,7 +17,7 @@ import { FlexboxSpacer } from "components/FlexboxSpacer";
 import { cx } from "lib/cx";
 import CyberButton from "components/CyberButton";
 import { useDispatch } from "react-redux";
-import { generateFakeResume } from "lib/redux/resumeSlice";
+import { generateFakeResume, refineResume } from "lib/redux/resumeSlice";
 import JobInputModal from "components/modals/JobInputModal";
 import { Dialog, Transition } from "@headlessui/react";
 import { set } from "zod";
@@ -38,19 +38,28 @@ export const ResumeForm = () => {
 
   const formsOrder = useAppSelector(selectFormsOrder);
   const [isHover, setIsHover] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState<any>(false);
 
-  const handleFakeResume = ({ jobTitle, jobDesc }: any) => {
+  const handleFakeResume = ({ jobTitle, jobDesc, type }: any) => {
     if (!jobTitle || !jobDesc) {
       alert("Please fill both job title and job description");
       return;
     }
-    // @ts-ignore
-    dispatch(generateFakeResume({ jobTitle, jobDesc }))
-      .unwrap()
-      .then(() => {
-        setModalOpen(false);
-      });
+    if (type === "fake_resume") {
+      // @ts-ignore
+      dispatch(generateFakeResume({ jobTitle, jobDesc }))
+        .unwrap()
+        .then(() => {
+          setModalOpen(false);
+        });
+    } else {
+      // @ts-ignore
+      dispatch(refineResume({ jobTitle, jobDesc }))
+        .unwrap()
+        .then(() => {
+          setModalOpen(false);
+        });
+    }
     console.log({ jobTitle, jobDesc });
   };
   return (
@@ -69,10 +78,20 @@ export const ResumeForm = () => {
         })}
         <ThemeForm />
         <div className="flex gap-8">
-          <CyberButton text="REFINE RESUME" />
+          <CyberButton
+            text="REFINE RESUME"
+            onClick={() =>
+              setModalOpen({ title: "Refine Resume", type: "refine_resume" })
+            }
+          />
           <CyberButton
             text="GENERATE FAKE RESUME"
-            onClick={() => setModalOpen(true)}
+            onClick={() =>
+              setModalOpen({
+                title: "Generate Fake Resume",
+                type: "fake_resume",
+              })
+            }
           />
         </div>
         <br />
