@@ -130,8 +130,21 @@ export const refineResume = createAsyncThunk(
         .flat()
         .join(",");
       const experience =
-        resume?.workExperiences?.filter?.((w) => w?.company) || [];
-      const projects = resume?.projects?.filter?.((p) => p?.project) || [];
+        resume?.workExperiences
+          ?.filter?.((w) => w?.company)
+          .map((w) => ({
+            title: w?.jobTitle || "",
+            company: w?.company || "",
+            duration: w?.date,
+            description: w?.descriptions?.join(",") || "",
+          })) || [];
+      const projects =
+        resume?.projects
+          ?.filter?.((p) => p?.project)
+          .map((p) => ({
+            project_title: p?.project || "",
+            description: p?.descriptions?.join(",") || "",
+          })) || [];
 
       const request_body = {
         job_title,

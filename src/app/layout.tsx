@@ -28,8 +28,8 @@ export default function RootLayout({
         {/* <TopNavBar /> */}
         <ClerkProvider
           isSatellite={true}
-          domain={"/http:localhost:3000"}
-          signInUrl="http:localhost:3000/sign-in"
+          domain={"localhost:3001"}
+          signInUrl="http://localhost:3000/sign-in"
           publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
         >
           <LandingPageWrapper>{children}</LandingPageWrapper>

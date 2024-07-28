@@ -8,9 +8,14 @@ import NewCyberButton from "./NewCyberButton";
 import { SiRobotframework } from "react-icons/si";
 import { IoLink } from "react-icons/io5";
 import { PiCoinsFill } from "react-icons/pi";
+import { useAuth, useUser } from "@clerk/nextjs";
 
 // TODO: add proper types
 export function SideNav({ setMinimize, minimize }: any) {
+  // const auth = useAuth();
+  // const user = useUser();
+  // console.log(auth);
+  // console.log(user);
   // Adjust the history window:
 
   //   const [maxHistoryHeight, setMaxHistoryHeight] = useState(
