@@ -34,7 +34,7 @@ export const InputGroupWrapper = ({
 );
 
 export const INPUT_CLASS_NAME =
-  "w-full h-[40px] py-[10px] px-2 border focus:outline-none bg-[#404040] focus:ring-transparent focus:border-white focus:outline-0 focus-visible:ring-transparent placeholder:text-[#9F9A9A] text-[#9F9A9A]   placeholder:text-sm  border-gray-400";
+  "w-full h-[40px] py-[10px] px-2 border focus:outline-none bg-[#404040] focus:ring-transparent focus:border-white focus:outline-0 focus-visible:ring-transparent placeholder:text-[#9F9A9A] text-[#fff]   placeholder:text-sm  border-gray-400";
 
 export const Input = <K extends string>({
   name,
