@@ -26,8 +26,12 @@ export const ResumePDFProject = ({
               marginTop: spacing["0.5"],
             }}
           >
-            <ResumePDFText bold={true}>{project}</ResumePDFText>
-            <ResumePDFText>{date}</ResumePDFText>
+            <View style={{ width: "50%" }}>
+              <ResumePDFText bold={true}>{project}</ResumePDFText>
+            </View>
+            <View style={{ width: "50%" }}>
+              <ResumePDFText>{date}</ResumePDFText>
+            </View>
           </View>
           <View style={{ ...styles.flexCol, marginTop: spacing["0.5"] }}>
             <ResumePDFBulletList items={descriptions} />

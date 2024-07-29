@@ -93,11 +93,19 @@ export const generateFakeResume = createAsyncThunk(
   `${name}/generateFakeResume`,
   async ({ jobTitle, jobDesc }: any, { getState, dispatch }) => {
     try {
+      const resume = getState()?.resume;
+      const personal_info = Boolean(
+        resume?.profile?.name ||
+          resume?.profile?.email ||
+          resume?.profile?.phone,
+      );
       const job_title = jobTitle;
       const job_description = jobDesc;
+
       const { data: fakeResume } = await generateFakeResumeService({
         job_title,
         job_description,
+        personal_info,
       });
 
       const skillsList = fakeResume?.skills?.split(",") || [];
@@ -157,7 +165,6 @@ export const refineResume = createAsyncThunk(
         projects,
       };
 
-      console.log({ request_body });
       const { data: refinedResume } = await refineResumeService(request_body);
       const profile = refinedResume?.profile_summary || "";
       const skillsList = refinedResume?.skills?.split?.(",") || [];
@@ -188,37 +195,37 @@ const updateResume = createAsyncThunk(
     dispatch(
       changeProfile({
         field: "name",
-        value: data?.name || resume?.profile?.name || "",
+        value: resume?.profile?.name || data?.name || "",
       }),
     );
     dispatch(
       changeProfile({
         field: "summary",
-        value: data?.profile || resume?.profile?.summary || "",
+        value: resume?.profile?.summary || data?.profile || "",
       }),
     );
     dispatch(
       changeProfile({
         field: "email",
-        value: data?.contact_info?.email || resume?.profile?.email || "",
+        value: resume?.profile?.email || data?.contact_info?.email || "",
       }),
     );
     dispatch(
       changeProfile({
         field: "location",
-        value: data?.contact_info?.location || resume?.profile?.location || "",
+        value: resume?.profile?.location || data?.contact_info?.location || "",
       }),
     );
     dispatch(
       changeProfile({
         field: "phone",
-        value: data?.contact_info?.phone_number || resume?.profile?.phone || "",
+        value: resume?.profile?.phone || data?.contact_info?.phone_number || "",
       }),
     );
     dispatch(
       changeProfile({
         field: "url",
-        value: data?.contact_info?.website || resume?.profile?.url || "",
+        value: resume?.profile?.url || data?.contact_info?.website || "",
       }),
     );
     dispatch(changeSkills({ field: "descriptions", value: skillsList }));

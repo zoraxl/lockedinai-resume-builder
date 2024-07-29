@@ -27,7 +27,7 @@ export const SkillsForm = () => {
   const handleFeaturedSkillsChange = (
     idx: number,
     skill: string,
-    rating: number
+    rating: number,
   ) => {
     dispatch(changeSkills({ field: "featuredSkills", idx, skill, rating }));
   };
@@ -48,7 +48,7 @@ export const SkillsForm = () => {
             onChange={handleSkillsChange}
             showBulletPoints={showBulletPoints}
           />
-          <div className="absolute left-[4.5rem] top-[0.07rem]">
+          <div className="absolute -top-[1px] left-[120px]">
             <BulletListIconButton
               showBulletPoints={showBulletPoints}
               onClick={handleShowBulletPoints}
