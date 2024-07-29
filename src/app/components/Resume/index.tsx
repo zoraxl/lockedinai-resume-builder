@@ -35,6 +35,13 @@ export const Resume = () => {
       <div className="relative flex justify-center pr-[50px] lg:justify-start lg:pr-0">
         <FlexboxSpacer maxWidth={50} className="hidden lg:block" />
         <div className="relative">
+          <ResumeControlBarCSR
+            scale={scale}
+            setScale={setScale}
+            documentSize={settings.documentSize}
+            document={document}
+            fileName={resume.profile.name + " - Resume"}
+          />
           <section className="h-[calc(100vh-var(--top-nav-bar-height)-var(--resume-control-bar-height))] overflow-hidden md:p-[var(--resume-padding)]">
             <ResumeIframeCSR
               documentSize={settings.documentSize}
@@ -48,13 +55,6 @@ export const Resume = () => {
               />
             </ResumeIframeCSR>
           </section>
-          <ResumeControlBarCSR
-            scale={scale}
-            setScale={setScale}
-            documentSize={settings.documentSize}
-            document={document}
-            fileName={resume.profile.name + " - Resume"}
-          />
         </div>
         {/* <ResumeControlBarBorder /> */}
       </div>

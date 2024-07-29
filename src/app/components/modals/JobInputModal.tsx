@@ -42,7 +42,7 @@ function ModalContent(props: any) {
             alt="close"
             className="absolute right-4 top-2 z-50 cursor-pointer"
           />
-          <section className="sm:custom-overflow-vertical flex w-full flex-col px-[20px] py-[20px] sm:overflow-y-auto md:py-[30px]">
+          <section className="sm:custom-overflow-vertical flex w-full flex-col px-[20px] py-[20px] sm:overflow-y-auto md:py-[40px]">
             <h2 className="border-b border-b-white/30 pb-1 text-sm font-medium leading-[18px] text-white md:text-lg">
               {title}
             </h2>
@@ -68,7 +68,7 @@ function ModalContent(props: any) {
                 ignoreAutoSize={true}
               />
 
-              <div className="col-span-full mt-[10px] flex justify-end gap-2">
+              <div className="col-span-full mr-[20px] mt-[10px] flex justify-end gap-2">
                 <OriginalButton
                   className="h-6 w-20 min-w-max bg-cyan-500 px-2 text-xs text-black transition duration-200 ease-out hover:bg-cyan-500/80 md:h-10"
                   text={"Confirm"}

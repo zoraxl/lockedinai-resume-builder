@@ -30,7 +30,7 @@ const Selection = ({
 
   return (
     <div
-      className="hover:bg-design-blue bg-design-dark-grey-2 flex w-[105px] cursor-pointer items-center justify-center rounded-md border border-gray-300 py-1.5 text-white shadow-sm hover:border-gray-400"
+      className="flex w-[105px] cursor-pointer items-center justify-center rounded-md border border-gray-300 bg-design-dark-grey-2 py-1.5 text-white shadow-sm hover:border-gray-400 hover:bg-design-blue"
       onClick={onClick}
       style={isSelected ? selectedStyle : style}
       onKeyDown={(e) => {
@@ -149,7 +149,7 @@ export const DocumentSizeSelections = ({
             isSelected={type === selectedDocumentSize}
             onClick={() => handleSettingsChange("documentSize", type)}
           >
-            <div className="flex flex-col items-center">
+            <div className="text-center">
               <div>{type}</div>
               <div className="text-xs">
                 {type === "Letter" ? "(US, Canada)" : "(other countries)"}

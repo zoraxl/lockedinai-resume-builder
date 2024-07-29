@@ -20,6 +20,7 @@ import {
   refineResumeService,
 } from "lib/services/resumeService";
 import { thunkStatus } from "./utils";
+import { toast } from "react-toastify";
 
 export const initialProfile: ResumeProfile = {
   name: "",
@@ -105,10 +106,11 @@ export const generateFakeResume = createAsyncThunk(
 
       const data = { ...fakeResume, skillsList, workExpList, projectsList };
       dispatch(updateResume(data));
+      toast("Fake Resume generated successfully!", { type: "success" });
     } catch (err) {
       console.log(err);
       // @ts-ignore
-      alert(err?.message);
+      toast(err?.message, { type: "error" });
     }
   },
 );
@@ -169,10 +171,11 @@ export const refineResume = createAsyncThunk(
         projectsList,
       };
       dispatch(updateResume(data));
+      toast("Resume refined successfully!", { type: "success" });
     } catch (err) {
       console.log(err);
       // @ts-ignore
-      alert(err?.message);
+      toast(err?.message, { type: "error" });
     }
   },
 );

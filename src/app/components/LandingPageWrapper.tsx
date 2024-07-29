@@ -5,6 +5,9 @@ import React, { Fragment, useState, useEffect, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { SideNav } from "components/SideNav";
 // import SettingsModal from "../Modals/SettingsModal.react";
 
@@ -286,5 +289,10 @@ type LandingPageWrapperType = {
 };
 
 export function LandingPageWrapper({ children }: LandingPageWrapperType) {
-  return <LandingPageInner>{children}</LandingPageInner>;
+  return (
+    <LandingPageInner>
+      {children}
+      <ToastContainer theme="dark" position="top-center" />
+    </LandingPageInner>
+  );
 }

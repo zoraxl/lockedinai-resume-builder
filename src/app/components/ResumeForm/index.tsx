@@ -21,6 +21,7 @@ import { generateFakeResume, refineResume } from "lib/redux/resumeSlice";
 import JobInputModal from "components/modals/JobInputModal";
 import { Dialog, Transition } from "@headlessui/react";
 import { set } from "zod";
+import { toast } from "react-toastify";
 
 const formTypeToComponent: { [type in ShowForm]: () => JSX.Element } = {
   workExperiences: WorkExperiencesForm,
@@ -71,12 +72,6 @@ export const ResumeForm = () => {
       onMouseLeave={() => setIsHover(false)}
     >
       <section className="flex max-w-2xl flex-col gap-8 p-[var(--resume-padding)]">
-        <ProfileForm />
-        {formsOrder.map((form) => {
-          const Component = formTypeToComponent[form];
-          return <Component key={form} />;
-        })}
-        <ThemeForm />
         <div className="flex gap-8">
           <CyberButton
             text="REFINE RESUME"
@@ -94,6 +89,13 @@ export const ResumeForm = () => {
             }
           />
         </div>
+        <ProfileForm />
+        {formsOrder.map((form) => {
+          const Component = formTypeToComponent[form];
+          return <Component key={form} />;
+        })}
+        <ThemeForm />
+
         <br />
       </section>
       <FlexboxSpacer maxWidth={50} className="hidden md:block" />
