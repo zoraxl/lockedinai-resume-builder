@@ -73,7 +73,7 @@ function ModalContent(props: any) {
                   className="h-6 w-20 min-w-max bg-cyan-500 px-2 text-xs text-black transition duration-200 ease-out hover:bg-cyan-500/80 md:h-10"
                   text={"Confirm"}
                   handleClick={() => handleSubmit({ jobTitle, jobDesc, type })}
-                  loading={loading || loading2}
+                  // loading={loading || loading2}
                 />
                 <OriginalButton
                   handleClick={() => setFormOpen(false)}

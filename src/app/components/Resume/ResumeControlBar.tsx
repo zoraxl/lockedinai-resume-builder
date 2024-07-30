@@ -7,6 +7,9 @@ import {
 } from "@heroicons/react/24/outline";
 import { usePDF } from "@react-pdf/renderer";
 import dynamic from "next/dynamic";
+import { useAppSelector } from "lib/redux/hooks";
+import { thunkStatus } from "lib/redux/utils";
+import FakeCounter from "./FakeCounter";
 
 const ResumeControlBar = ({
   scale,
@@ -21,6 +24,13 @@ const ResumeControlBar = ({
   document: JSX.Element;
   fileName: string;
 }) => {
+  const loading = useAppSelector(
+    (state) => state.resume.generateFakeResumeStatus === thunkStatus.LOADING,
+  );
+  const loading2 = useAppSelector(
+    (state) => state.resume.refineResumeStatus === thunkStatus.LOADING,
+  );
+
   const { scaleOnResize, setScaleOnResize } = useSetDefaultScale({
     setScale,
     documentSize,
@@ -64,7 +74,17 @@ const ResumeControlBar = ({
         download={fileName}
       >
         <span className="btn__content">
-          <ArrowDownTrayIcon className="mr-[10px] h-4 w-4" />
+          {Boolean(loading || loading2) ? (
+            <div className="flex">
+              <FakeCounter loading={loading || loading2} />
+              <div
+                className="text-design-white mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-[white] border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                role="status"
+              ></div>
+            </div>
+          ) : (
+            <ArrowDownTrayIcon className="mr-[10px] h-4 w-4" />
+          )}
           <span className="whitespace-nowrap">Download Resume</span>
         </span>
       </a>

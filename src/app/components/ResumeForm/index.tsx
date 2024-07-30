@@ -48,19 +48,13 @@ export const ResumeForm = () => {
     }
     if (type === "fake_resume") {
       // @ts-ignore
-      dispatch(generateFakeResume({ jobTitle, jobDesc }))
-        .unwrap()
-        .then(() => {
-          setModalOpen(false);
-        });
+      dispatch(generateFakeResume({ jobTitle, jobDesc }));
     } else {
       // @ts-ignore
-      dispatch(refineResume({ jobTitle, jobDesc }))
-        .unwrap()
-        .then(() => {
-          setModalOpen(false);
-        });
+      dispatch(refineResume({ jobTitle, jobDesc }));
     }
+    setModalOpen(false);
+
     console.log({ jobTitle, jobDesc });
   };
   return (
