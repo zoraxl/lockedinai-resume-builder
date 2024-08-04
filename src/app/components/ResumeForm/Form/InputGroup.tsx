@@ -84,7 +84,7 @@ export const Textarea = <T extends string>({
       <textarea
         ref={ignoreAutoSize ? null : textareaRef}
         name={name}
-        className={`${INPUT_CLASS_NAME} ${ignoreAutoSize ? "h-[70px]" : ""} resize-none overflow-hidden`}
+        className={`${INPUT_CLASS_NAME} ${ignoreAutoSize ? "h-[70px] overflow-auto" : "overflow-hidden"} resize-none`}
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(name, e.target.value)}

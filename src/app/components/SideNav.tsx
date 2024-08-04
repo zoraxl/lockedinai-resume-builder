@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import PropTypes from "prop-types";
 
 import React, { useState, useEffect } from "react";
@@ -9,9 +10,11 @@ import { SiRobotframework } from "react-icons/si";
 import { IoLink } from "react-icons/io5";
 import { PiCoinsFill } from "react-icons/pi";
 import { useAuth, useUser } from "@clerk/nextjs";
+import { ArrowLeftCircleIcon } from "@heroicons/react/24/solid";
 
 // TODO: add proper types
 export function SideNav({ setMinimize, minimize }: any) {
+  const path = usePathname();
   // const auth = useAuth();
   // const user = useUser();
   // console.log(auth);
@@ -56,7 +59,7 @@ export function SideNav({ setMinimize, minimize }: any) {
           </div>
         ) : (
           <div className="flex w-full justify-center">
-            <Link href="#">
+            <Link href="/">
               <img
                 className="m-8 mx-auto h-[40px] w-[40px] object-contain"
                 src={"assets/toggled_logo.png"}
@@ -66,7 +69,17 @@ export function SideNav({ setMinimize, minimize }: any) {
           </div>
         )}
       </div>
-      <div className="flex w-full items-center justify-between border-b border-white/[.2] font-poppins text-white">
+      <div
+        className={`flex ${minimize ? "flex-col items-center" : ""} w-full border-b border-white/[.2] font-poppins text-white`}
+      >
+        {path !== "/" && (
+          <Link href="/">
+            <ArrowLeftCircleIcon
+              className={`h-8 w-8 cursor-pointer text-cyan-500 transition duration-200 ease-out hover:text-white ${minimize ? "mb-[10px]" : ""}`}
+              aria-hidden="true"
+            />
+          </Link>
+        )}
         <div className="mb-6 ml-4 mt-1">
           <h3 className="overflow-hidden truncate text-[16px] font-[600]">
             Mirza Adil

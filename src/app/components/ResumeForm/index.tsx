@@ -58,48 +58,50 @@ export const ResumeForm = () => {
     console.log({ jobTitle, jobDesc });
   };
   return (
-    <div
-      className={cx(
-        "resume_builder flex justify-center md:overflow-y-scroll lg:h-[calc(100vh-var(--top-nav-bar-height))] lg:justify-end",
-      )}
-      onMouseOver={() => setIsHover(true)}
-      onMouseLeave={() => setIsHover(false)}
-    >
-      <section className="flex max-w-2xl flex-col gap-8 p-[var(--resume-padding)]">
-        <div className="flex gap-8">
-          <CyberButton
-            text="REFINE RESUME"
-            onClick={() =>
-              setModalOpen({ title: "Refine Resume", type: "refine_resume" })
-            }
-          />
-          <CyberButton
-            text="GENERATE FAKE RESUME"
-            onClick={() =>
-              setModalOpen({
-                title: "Generate Fake Resume",
-                type: "fake_resume",
-              })
-            }
-          />
-        </div>
-        <ProfileForm />
-        {formsOrder.map((form) => {
-          const Component = formTypeToComponent[form];
-          return <Component key={form} />;
-        })}
-        <ThemeForm />
+    <div>
+      <div className="flex justify-center gap-8 py-[40px]">
+        <CyberButton
+          text="REFINE RESUME"
+          onClick={() =>
+            setModalOpen({ title: "Refine Resume", type: "refine_resume" })
+          }
+        />
+        <CyberButton
+          text="GENERATE FAKE RESUME"
+          onClick={() =>
+            setModalOpen({
+              title: "Generate Fake Resume",
+              type: "fake_resume",
+            })
+          }
+        />
+      </div>
+      <div
+        className={cx(
+          "resume_builder flex justify-center md:overflow-y-scroll lg:h-[calc(100vh-var(--top-nav-bar-height))] lg:justify-end",
+        )}
+        onMouseOver={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+      >
+        <section className="flex max-w-2xl flex-col gap-8 p-[var(--resume-padding)]">
+          <ProfileForm />
+          {formsOrder.map((form) => {
+            const Component = formTypeToComponent[form];
+            return <Component key={form} />;
+          })}
+          <ThemeForm />
 
-        <br />
-      </section>
-      <FlexboxSpacer maxWidth={50} className="hidden md:block" />
+          <br />
+        </section>
+        <FlexboxSpacer maxWidth={50} className="hidden md:block" />
 
-      <JobInputModal
-        formOpen={modalOpen}
-        setFormOpen={setModalOpen}
-        title="Generate Fake Resume"
-        handleSubmit={handleFakeResume}
-      />
+        <JobInputModal
+          formOpen={modalOpen}
+          setFormOpen={setModalOpen}
+          title="Generate Fake Resume"
+          handleSubmit={handleFakeResume}
+        />
+      </div>
     </div>
   );
 };
